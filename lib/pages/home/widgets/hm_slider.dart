@@ -29,7 +29,7 @@ class _HmSliderState extends State<HmSlider> {
             );
           }).toList(),
       options: CarouselOptions(
-        height: 500,
+        height: 300,
         viewportFraction: 1,
         autoPlay: true,
         onPageChanged: (index, reason) {
