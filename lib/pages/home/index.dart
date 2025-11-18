@@ -32,15 +32,23 @@ class _HomeViewState extends State<HomeView> {
     //       'https://img.uuss.uk/-uoHjbnvWvMc/Zf-Ie_uC84l/AAAAAAAAUUU/66fztzxgqR0WF0YSXgITPDIBCvOpeOyAwCNcBGAsHYQ/w1300-rw/every-year-nnian-stewardess-4khd.com-041.webp?w=1300',
     // ),
   ];
+  List<CategoryItem> _categoryList = [];
 
   @override
   void initState() {
     super.initState();
     _getBannerList();
+    _getCategoryList();
   }
 
   void _getBannerList() async {
     _bannerList = await getBannerList();
+    setState(() {});
+  }
+
+  // 分类列表
+  void _getCategoryList() async {
+    _categoryList = await getCategoryList();
     setState(() {});
   }
 
@@ -51,7 +59,7 @@ class _HomeViewState extends State<HomeView> {
       SliverToBoxAdapter(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: HmCategory(),
+          child: HmCategory(categoryList: _categoryList),
         ),
       ),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
