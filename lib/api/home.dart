@@ -22,6 +22,20 @@ Future<List<CategoryItem>> getCategoryList() async {
 // 特惠推荐
 Future<SpecialOffer> getSpecialOffer() async {
   return SpecialOffer.fromJson(
-    await dioRequest.get(HttpConstants.PRODUCT_LIST),
+    await dioRequest.get(HttpConstants.PRODUCT_PREFERENCE),
+  );
+}
+
+// 爆款推荐
+Future<SpecialOffer> getInVogue() async {
+  return SpecialOffer.fromJson(
+    await dioRequest.get(HttpConstants.PRODUCT_IN_VOGUE),
+  );
+}
+
+// 一站式推荐
+Future<SpecialOffer> getOneStop() async {
+  return SpecialOffer.fromJson(
+    await dioRequest.get(HttpConstants.PRODUCT_ONE_STOP),
   );
 }

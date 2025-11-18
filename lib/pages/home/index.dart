@@ -34,6 +34,8 @@ class _HomeViewState extends State<HomeView> {
   ];
   List<CategoryItem> _categoryList = [];
   SpecialOffer _specialOffer = SpecialOffer(id: '', title: '', subTypes: []);
+  SpecialOffer _inVogue = SpecialOffer(id: '', title: '', subTypes: []);
+  SpecialOffer _oneStop = SpecialOffer(id: '', title: '', subTypes: []);
 
   @override
   void initState() {
@@ -41,6 +43,8 @@ class _HomeViewState extends State<HomeView> {
     _getBannerList();
     _getCategoryList();
     _getSpecialOffer();
+    _getInVogue();
+    _getOneStop();
   }
 
   void _getBannerList() async {
@@ -57,6 +61,18 @@ class _HomeViewState extends State<HomeView> {
   // 特惠推荐
   void _getSpecialOffer() async {
     _specialOffer = await getSpecialOffer();
+    setState(() {});
+  }
+
+  // 爆款推荐
+  void _getInVogue() async {
+    _inVogue = await getInVogue();
+    setState(() {});
+  }
+
+  // 一站式推荐
+  void _getOneStop() async {
+    _oneStop = await getOneStop();
     setState(() {});
   }
 
@@ -84,9 +100,9 @@ class _HomeViewState extends State<HomeView> {
           child: Flex(
             direction: Axis.horizontal,
             children: [
-              Expanded(child: HmHot()),
+              Expanded(child: HmHot(specialOffer: _inVogue, type: 'hot')),
               SizedBox(width: 10),
-              Expanded(child: HmHot()),
+              Expanded(child: HmHot(specialOffer: _oneStop, type: 'step')),
             ],
           ),
         ),
