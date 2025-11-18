@@ -33,12 +33,14 @@ class _HomeViewState extends State<HomeView> {
     // ),
   ];
   List<CategoryItem> _categoryList = [];
+  SpecialOffer _specialOffer = SpecialOffer(id: '', title: '', subTypes: []);
 
   @override
   void initState() {
     super.initState();
     _getBannerList();
     _getCategoryList();
+    _getSpecialOffer();
   }
 
   void _getBannerList() async {
@@ -49,6 +51,12 @@ class _HomeViewState extends State<HomeView> {
   // 分类列表
   void _getCategoryList() async {
     _categoryList = await getCategoryList();
+    setState(() {});
+  }
+
+  // 特惠推荐
+  void _getSpecialOffer() async {
+    _specialOffer = await getSpecialOffer();
     setState(() {});
   }
 
@@ -66,7 +74,7 @@ class _HomeViewState extends State<HomeView> {
       SliverToBoxAdapter(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: HmSuggestion(),
+          child: HmSuggestion(specialOffer: _specialOffer),
         ),
       ),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
