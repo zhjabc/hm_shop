@@ -50,6 +50,16 @@ class _HomeViewState extends State<HomeView> {
     _getInVogue();
     _getOneStop();
     _getRecommendList();
+    _registerEvent();
+  }
+
+  void _registerEvent() {
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >=
+          (_scrollController.position.maxScrollExtent - 50)) {
+        _getRecommendList();
+      }
+    });
   }
 
   void _getBannerList() async {
@@ -82,9 +92,25 @@ class _HomeViewState extends State<HomeView> {
   }
 
   // 推荐列表
+  int _page = 1;
+  final int _limit = 200;
+  bool _isLoading = false;
+  bool _hasMore = true;
   void _getRecommendList() async {
-    _recommendList = await getRecommendList({"limit": 999});
+    if (_isLoading || !_hasMore) return;
+
+    _isLoading = true;
+    int requestLimit = _page * _limit;
+    _recommendList = await getRecommendList({"limit": requestLimit});
+    _isLoading = false;
     setState(() {});
+
+    if (_recommendList.length < requestLimit) {
+      _hasMore = false;
+      return;
+    }
+
+    _page++;
   }
 
   List<Widget> _getScrollChildren() {
@@ -127,8 +153,13 @@ class _HomeViewState extends State<HomeView> {
     ];
   }
 
+  final ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(slivers: _getScrollChildren());
+    return CustomScrollView(
+      controller: _scrollController,
+      slivers: _getScrollChildren(),
+    );
   }
 }
