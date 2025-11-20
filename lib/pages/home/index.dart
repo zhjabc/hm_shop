@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hm_shop/api/home.dart';
 import 'package:hm_shop/models/banner_item.dart';
 import 'package:hm_shop/models/category_item.dart';
+import 'package:hm_shop/models/recommend_item.dart';
 import 'package:hm_shop/models/special_offer.dart';
 import 'package:hm_shop/pages/home/widgets/hm_category.dart';
 import 'package:hm_shop/pages/home/widgets/hm_hot.dart';
@@ -38,6 +39,7 @@ class _HomeViewState extends State<HomeView> {
   SpecialOffer _specialOffer = SpecialOffer(id: '', title: '', subTypes: []);
   SpecialOffer _inVogue = SpecialOffer(id: '', title: '', subTypes: []);
   SpecialOffer _oneStop = SpecialOffer(id: '', title: '', subTypes: []);
+  List<RecommendItem> _recommendList = [];
 
   @override
   void initState() {
@@ -47,6 +49,7 @@ class _HomeViewState extends State<HomeView> {
     _getSpecialOffer();
     _getInVogue();
     _getOneStop();
+    _getRecommendList();
   }
 
   void _getBannerList() async {
@@ -75,6 +78,12 @@ class _HomeViewState extends State<HomeView> {
   // 一站式推荐
   void _getOneStop() async {
     _oneStop = await getOneStop();
+    setState(() {});
+  }
+
+  // 推荐列表
+  void _getRecommendList() async {
+    _recommendList = await getRecommendList({"limit": 999});
     setState(() {});
   }
 
@@ -110,7 +119,11 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      HmMoreList(),
+
+      SliverPadding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        sliver: HmMoreList(recommendList: _recommendList),
+      ),
     ];
   }
 
