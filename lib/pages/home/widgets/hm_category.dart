@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hm_shop/models/home.dart';
+import 'package:hm_shop/models/category_item.dart';
 
 class HmCategory extends StatefulWidget {
   const HmCategory({super.key, required this.categoryList});
@@ -32,8 +32,8 @@ class _HmCategoryState extends State<HmCategory> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.network(category.picture, width: 40, height: 40),
-                Text(category.name, style: TextStyle(color: Colors.black)),
+                Image.network(category.picture!, width: 40, height: 40),
+                Text(category.name!, style: TextStyle(color: Colors.black)),
               ],
             ),
           );

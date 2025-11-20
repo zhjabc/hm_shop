@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hm_shop/models/home.dart';
+import 'package:hm_shop/models/special_offer.dart';
 
 class HmSuggestion extends StatefulWidget {
   const HmSuggestion({super.key, required this.specialOffer});
@@ -12,17 +12,13 @@ class HmSuggestion extends StatefulWidget {
 
 class _HmSuggestionState extends State<HmSuggestion> {
   List<GoodsItem> get _goodsList =>
-      widget.specialOffer.subTypes.isEmpty
-          ? []
-          : widget.specialOffer.subTypes.first.goodsItems.items
-              .take(3)
-              .toList();
+      widget.specialOffer.subTypes?.first.goodsItems?.items ?? [];
 
   Widget _buildHeader() {
     return Row(
       children: [
         Text(
-          widget.specialOffer.title,
+          widget.specialOffer.title!,
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -69,7 +65,7 @@ class _HmSuggestionState extends State<HmSuggestion> {
                     width: 100,
                     height: 140,
                   ),
-              _goodsList[index].picture,
+              _goodsList[index].picture!,
               fit: BoxFit.cover,
               width: 100,
               height: 140,

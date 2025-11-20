@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:hm_shop/models/home.dart';
+import 'package:hm_shop/models/banner_item.dart';
 
 class HmSlider extends StatefulWidget {
   final List<BannerItem> bannerList;

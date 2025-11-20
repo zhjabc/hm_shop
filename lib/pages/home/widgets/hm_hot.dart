@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hm_shop/models/home.dart';
+import 'package:hm_shop/models/special_offer.dart';
 
 class HmHot extends StatefulWidget {
   const HmHot({super.key, required this.specialOffer, required this.type});
@@ -13,15 +13,14 @@ class HmHot extends StatefulWidget {
 
 class _HmHotState extends State<HmHot> {
   List<GoodsItem> get _goodsList =>
-      widget.specialOffer.subTypes.isNotEmpty
-          ? widget.specialOffer.subTypes.first.goodsItems.items.take(2).toList()
-          : [];
+      widget.specialOffer.subTypes?.first.goodsItems?.items?.take(2).toList() ??
+      [];
 
   Widget _buildHeader() {
     return Row(
       children: [
         Text(
-          widget.specialOffer.title,
+          widget.specialOffer.title!,
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -30,9 +29,7 @@ class _HmHotState extends State<HmHot> {
         ),
         SizedBox(width: 10),
         Text(
-          widget.specialOffer.subTypes.isNotEmpty
-              ? widget.specialOffer.subTypes.first.title
-              : '',
+          widget.specialOffer.subTypes?.first.title ?? '',
           style: TextStyle(
             fontSize: 12,
             color: Color.fromARGB(255, 124, 63, 58),
@@ -73,7 +70,7 @@ class _HmHotState extends State<HmHot> {
                             width: 80,
                             height: 100,
                           ),
-                      _goodsList[index].picture,
+                      _goodsList[index].picture!,
                       width: 80,
                       height: 100,
                     ),
