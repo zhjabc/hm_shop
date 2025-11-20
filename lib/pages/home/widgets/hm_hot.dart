@@ -13,7 +13,9 @@ class HmHot extends StatefulWidget {
 
 class _HmHotState extends State<HmHot> {
   List<GoodsItem> get _goodsList =>
-      widget.specialOffer.subTypes?.first.goodsItems?.items?.take(2).toList() ??
+      widget.specialOffer.subTypes?.firstOrNull?.goodsItems?.items
+          ?.take(2)
+          .toList() ??
       [];
 
   Widget _buildHeader() {
@@ -29,7 +31,7 @@ class _HmHotState extends State<HmHot> {
         ),
         SizedBox(width: 10),
         Text(
-          widget.specialOffer.subTypes?.first.title ?? '',
+          widget.specialOffer.subTypes?.firstOrNull?.title ?? '',
           style: TextStyle(
             fontSize: 12,
             color: Color.fromARGB(255, 124, 63, 58),

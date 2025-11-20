@@ -12,7 +12,10 @@ class HmSuggestion extends StatefulWidget {
 
 class _HmSuggestionState extends State<HmSuggestion> {
   List<GoodsItem> get _goodsList =>
-      widget.specialOffer.subTypes?.first.goodsItems?.items ?? [];
+      widget.specialOffer.subTypes?.firstOrNull?.goodsItems?.items
+          ?.take(3)
+          .toList() ??
+      [];
 
   Widget _buildHeader() {
     return Row(
