@@ -904,7 +904,7 @@ as List<GoodsItem>?,
 /// @nodoc
 mixin _$GoodsItem implements DiagnosticableTreeMixin {
 
- String? get id; String? get name; String? get desc; String? get price; String? get picture; int? get orderNum;
+ String? get id; String? get name; String? get desc;@JsonKey(fromJson: _priceFromJson) double? get price; String? get picture; int? get orderNum; int? get payCount;
 /// Create a copy of GoodsItem
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -918,21 +918,21 @@ $GoodsItemCopyWith<GoodsItem> get copyWith => _$GoodsItemCopyWithImpl<GoodsItem>
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'GoodsItem'))
-    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('desc', desc))..add(DiagnosticsProperty('price', price))..add(DiagnosticsProperty('picture', picture))..add(DiagnosticsProperty('orderNum', orderNum));
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('desc', desc))..add(DiagnosticsProperty('price', price))..add(DiagnosticsProperty('picture', picture))..add(DiagnosticsProperty('orderNum', orderNum))..add(DiagnosticsProperty('payCount', payCount));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoodsItem&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.desc, desc) || other.desc == desc)&&(identical(other.price, price) || other.price == price)&&(identical(other.picture, picture) || other.picture == picture)&&(identical(other.orderNum, orderNum) || other.orderNum == orderNum));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is GoodsItem&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.desc, desc) || other.desc == desc)&&(identical(other.price, price) || other.price == price)&&(identical(other.picture, picture) || other.picture == picture)&&(identical(other.orderNum, orderNum) || other.orderNum == orderNum)&&(identical(other.payCount, payCount) || other.payCount == payCount));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,desc,price,picture,orderNum);
+int get hashCode => Object.hash(runtimeType,id,name,desc,price,picture,orderNum,payCount);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'GoodsItem(id: $id, name: $name, desc: $desc, price: $price, picture: $picture, orderNum: $orderNum)';
+  return 'GoodsItem(id: $id, name: $name, desc: $desc, price: $price, picture: $picture, orderNum: $orderNum, payCount: $payCount)';
 }
 
 
@@ -943,7 +943,7 @@ abstract mixin class $GoodsItemCopyWith<$Res>  {
   factory $GoodsItemCopyWith(GoodsItem value, $Res Function(GoodsItem) _then) = _$GoodsItemCopyWithImpl;
 @useResult
 $Res call({
- String? id, String? name, String? desc, String? price, String? picture, int? orderNum
+ String? id, String? name, String? desc,@JsonKey(fromJson: _priceFromJson) double? price, String? picture, int? orderNum, int? payCount
 });
 
 
@@ -960,14 +960,15 @@ class _$GoodsItemCopyWithImpl<$Res>
 
 /// Create a copy of GoodsItem
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = freezed,Object? desc = freezed,Object? price = freezed,Object? picture = freezed,Object? orderNum = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? name = freezed,Object? desc = freezed,Object? price = freezed,Object? picture = freezed,Object? orderNum = freezed,Object? payCount = freezed,}) {
   return _then(_self.copyWith(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,desc: freezed == desc ? _self.desc : desc // ignore: cast_nullable_to_non_nullable
 as String?,price: freezed == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
-as String?,picture: freezed == picture ? _self.picture : picture // ignore: cast_nullable_to_non_nullable
+as double?,picture: freezed == picture ? _self.picture : picture // ignore: cast_nullable_to_non_nullable
 as String?,orderNum: freezed == orderNum ? _self.orderNum : orderNum // ignore: cast_nullable_to_non_nullable
+as int?,payCount: freezed == payCount ? _self.payCount : payCount // ignore: cast_nullable_to_non_nullable
 as int?,
   ));
 }
@@ -1053,10 +1054,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? name,  String? desc,  String? price,  String? picture,  int? orderNum)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? id,  String? name,  String? desc, @JsonKey(fromJson: _priceFromJson)  double? price,  String? picture,  int? orderNum,  int? payCount)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _GoodsItem() when $default != null:
-return $default(_that.id,_that.name,_that.desc,_that.price,_that.picture,_that.orderNum);case _:
+return $default(_that.id,_that.name,_that.desc,_that.price,_that.picture,_that.orderNum,_that.payCount);case _:
   return orElse();
 
 }
@@ -1074,10 +1075,10 @@ return $default(_that.id,_that.name,_that.desc,_that.price,_that.picture,_that.o
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? name,  String? desc,  String? price,  String? picture,  int? orderNum)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? id,  String? name,  String? desc, @JsonKey(fromJson: _priceFromJson)  double? price,  String? picture,  int? orderNum,  int? payCount)  $default,) {final _that = this;
 switch (_that) {
 case _GoodsItem():
-return $default(_that.id,_that.name,_that.desc,_that.price,_that.picture,_that.orderNum);case _:
+return $default(_that.id,_that.name,_that.desc,_that.price,_that.picture,_that.orderNum,_that.payCount);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1094,10 +1095,10 @@ return $default(_that.id,_that.name,_that.desc,_that.price,_that.picture,_that.o
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? name,  String? desc,  String? price,  String? picture,  int? orderNum)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? id,  String? name,  String? desc, @JsonKey(fromJson: _priceFromJson)  double? price,  String? picture,  int? orderNum,  int? payCount)?  $default,) {final _that = this;
 switch (_that) {
 case _GoodsItem() when $default != null:
-return $default(_that.id,_that.name,_that.desc,_that.price,_that.picture,_that.orderNum);case _:
+return $default(_that.id,_that.name,_that.desc,_that.price,_that.picture,_that.orderNum,_that.payCount);case _:
   return null;
 
 }
@@ -1109,15 +1110,16 @@ return $default(_that.id,_that.name,_that.desc,_that.price,_that.picture,_that.o
 @JsonSerializable()
 
 class _GoodsItem with DiagnosticableTreeMixin implements GoodsItem {
-  const _GoodsItem({this.id, this.name, this.desc, this.price, this.picture, this.orderNum});
+  const _GoodsItem({this.id, this.name, this.desc, @JsonKey(fromJson: _priceFromJson) this.price, this.picture, this.orderNum, this.payCount});
   factory _GoodsItem.fromJson(Map<String, dynamic> json) => _$GoodsItemFromJson(json);
 
 @override final  String? id;
 @override final  String? name;
 @override final  String? desc;
-@override final  String? price;
+@override@JsonKey(fromJson: _priceFromJson) final  double? price;
 @override final  String? picture;
 @override final  int? orderNum;
+@override final  int? payCount;
 
 /// Create a copy of GoodsItem
 /// with the given fields replaced by the non-null parameter values.
@@ -1133,21 +1135,21 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'GoodsItem'))
-    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('desc', desc))..add(DiagnosticsProperty('price', price))..add(DiagnosticsProperty('picture', picture))..add(DiagnosticsProperty('orderNum', orderNum));
+    ..add(DiagnosticsProperty('id', id))..add(DiagnosticsProperty('name', name))..add(DiagnosticsProperty('desc', desc))..add(DiagnosticsProperty('price', price))..add(DiagnosticsProperty('picture', picture))..add(DiagnosticsProperty('orderNum', orderNum))..add(DiagnosticsProperty('payCount', payCount));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoodsItem&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.desc, desc) || other.desc == desc)&&(identical(other.price, price) || other.price == price)&&(identical(other.picture, picture) || other.picture == picture)&&(identical(other.orderNum, orderNum) || other.orderNum == orderNum));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _GoodsItem&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.desc, desc) || other.desc == desc)&&(identical(other.price, price) || other.price == price)&&(identical(other.picture, picture) || other.picture == picture)&&(identical(other.orderNum, orderNum) || other.orderNum == orderNum)&&(identical(other.payCount, payCount) || other.payCount == payCount));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,desc,price,picture,orderNum);
+int get hashCode => Object.hash(runtimeType,id,name,desc,price,picture,orderNum,payCount);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'GoodsItem(id: $id, name: $name, desc: $desc, price: $price, picture: $picture, orderNum: $orderNum)';
+  return 'GoodsItem(id: $id, name: $name, desc: $desc, price: $price, picture: $picture, orderNum: $orderNum, payCount: $payCount)';
 }
 
 
@@ -1158,7 +1160,7 @@ abstract mixin class _$GoodsItemCopyWith<$Res> implements $GoodsItemCopyWith<$Re
   factory _$GoodsItemCopyWith(_GoodsItem value, $Res Function(_GoodsItem) _then) = __$GoodsItemCopyWithImpl;
 @override @useResult
 $Res call({
- String? id, String? name, String? desc, String? price, String? picture, int? orderNum
+ String? id, String? name, String? desc,@JsonKey(fromJson: _priceFromJson) double? price, String? picture, int? orderNum, int? payCount
 });
 
 
@@ -1175,14 +1177,15 @@ class __$GoodsItemCopyWithImpl<$Res>
 
 /// Create a copy of GoodsItem
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = freezed,Object? desc = freezed,Object? price = freezed,Object? picture = freezed,Object? orderNum = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? name = freezed,Object? desc = freezed,Object? price = freezed,Object? picture = freezed,Object? orderNum = freezed,Object? payCount = freezed,}) {
   return _then(_GoodsItem(
 id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String?,name: freezed == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String?,desc: freezed == desc ? _self.desc : desc // ignore: cast_nullable_to_non_nullable
 as String?,price: freezed == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
-as String?,picture: freezed == picture ? _self.picture : picture // ignore: cast_nullable_to_non_nullable
+as double?,picture: freezed == picture ? _self.picture : picture // ignore: cast_nullable_to_non_nullable
 as String?,orderNum: freezed == orderNum ? _self.orderNum : orderNum // ignore: cast_nullable_to_non_nullable
+as int?,payCount: freezed == payCount ? _self.payCount : payCount // ignore: cast_nullable_to_non_nullable
 as int?,
   ));
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hm_shop/models/recommend_item.dart';
+import 'package:hm_shop/models/special_offer.dart';
 
 class HmMoreList extends StatefulWidget {
-  final List<RecommendItem> recommendList;
+  final List<GoodsItem> recommendList;
 
   const HmMoreList({required this.recommendList, super.key});
 
@@ -52,7 +52,7 @@ class _HmMoreListState extends State<HmMoreList> {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    "${recommend.payCount}人付款",
+                    "${recommend.payCount ?? 0}人付款",
                     style: TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                 ],

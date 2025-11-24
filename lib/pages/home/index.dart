@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hm_shop/api/home.dart';
 import 'package:hm_shop/models/banner_item.dart';
 import 'package:hm_shop/models/category_item.dart';
-import 'package:hm_shop/models/recommend_item.dart';
 import 'package:hm_shop/models/special_offer.dart';
 import 'package:hm_shop/pages/home/widgets/hm_category.dart';
 import 'package:hm_shop/pages/home/widgets/hm_hot.dart';
@@ -40,7 +39,7 @@ class _HomeViewState extends State<HomeView> {
   SpecialOffer _specialOffer = SpecialOffer(id: '', title: '', subTypes: []);
   SpecialOffer _inVogue = SpecialOffer(id: '', title: '', subTypes: []);
   SpecialOffer _oneStop = SpecialOffer(id: '', title: '', subTypes: []);
-  List<RecommendItem> _recommendList = [];
+  List<GoodsItem> _recommendList = [];
 
   @override
   void initState() {

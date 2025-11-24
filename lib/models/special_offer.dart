@@ -44,11 +44,18 @@ abstract class GoodsItem with _$GoodsItem {
     String? id,
     String? name,
     String? desc,
-    String? price,
+    @JsonKey(fromJson: _priceFromJson) double? price,
     String? picture,
     int? orderNum,
+    int? payCount,
   }) = _GoodsItem;
 
   factory GoodsItem.fromJson(Map<String, Object?> json) =>
       _$GoodsItemFromJson(json);
+}
+
+double? _priceFromJson(dynamic v) {
+  if (v == null) return null;
+  if (v is num) return v.toDouble();
+  return double.tryParse(v.toString());
 }

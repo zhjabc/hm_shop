@@ -62,9 +62,10 @@ _GoodsItem _$GoodsItemFromJson(Map<String, dynamic> json) => _GoodsItem(
   id: json['id'] as String?,
   name: json['name'] as String?,
   desc: json['desc'] as String?,
-  price: json['price'] as String?,
+  price: _priceFromJson(json['price']),
   picture: json['picture'] as String?,
   orderNum: (json['orderNum'] as num?)?.toInt(),
+  payCount: (json['payCount'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$GoodsItemToJson(_GoodsItem instance) =>
@@ -75,4 +76,5 @@ Map<String, dynamic> _$GoodsItemToJson(_GoodsItem instance) =>
       'price': instance.price,
       'picture': instance.picture,
       'orderNum': instance.orderNum,
+      'payCount': instance.payCount,
     };
