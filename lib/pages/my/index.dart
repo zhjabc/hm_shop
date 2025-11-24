@@ -12,7 +12,7 @@ class MyView extends StatefulWidget {
 }
 
 class _MyViewState extends State<MyView> {
-  List<GoodsItem> _recommendList = [];
+  final List<GoodsItem> _recommendList = [];
 
   @override
   void initState() {
@@ -73,10 +73,15 @@ class _MyViewState extends State<MyView> {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  '立即登录',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed('login');
+                  },
+                  child: Text(
+                    '立即登录',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  ),
                 ),
               ],
             ),
