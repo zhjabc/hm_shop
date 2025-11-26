@@ -1,4 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:hm_shop/api/user.dart';
+import 'package:hm_shop/models/user_info.dart';
 import 'package:hm_shop/utils/totast_utils.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,6 +22,17 @@ class _LoginPageState extends State<LoginPage> {
     if (_formKey.currentState!.validate()) {
       if (!_selected) {
         TotastUtils.showToast(context, "请同意隐私条款和用户协议");
+        return;
+      }
+      try {
+        UserInfo userInfo = await login({
+          "account": _accountController.text,
+          "password": _passwordController.text,
+        });
+        TotastUtils.showToast(context, "登录成功");
+        Navigator.of(context).pop();
+      } on DioException catch (e) {
+        TotastUtils.showToast(context, e.message);
       }
     }
   }
@@ -128,9 +142,12 @@ class _LoginPageState extends State<LoginPage> {
                     backgroundColor: WidgetStateProperty.all(Colors.black),
                   ),
                   onPressed: _login,
-                  child: const Text(
-                    '登录',
-                    style: TextStyle(color: Colors.white),
+                  child: InkWell(
+                    onTap: _login,
+                    child: const Text(
+                      '登录',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ),
