@@ -29,7 +29,7 @@ class _HmHotState extends State<HmHot> {
             color: Color.fromARGB(255, 106, 24, 20),
           ),
         ),
-        SizedBox(width: 10),
+        SizedBox(width: 5),
         Text(
           widget.specialOffer.subTypes?.firstOrNull?.title ?? '',
           style: TextStyle(
@@ -58,34 +58,39 @@ class _HmHotState extends State<HmHot> {
           _buildHeader(),
           SizedBox(height: 10),
           Row(
+            spacing: 10,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(_goodsList.length, (index) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Image.network(
-                      errorBuilder:
-                          (context, error, stackTrace) => Image.asset(
-                            'lib/images/home_cmd_inner.png',
-                            width: 80,
-                            height: 100,
-                          ),
-                      _goodsList[index].picture!,
-                      width: 80,
-                      height: 100,
+              return Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.network(
+                        errorBuilder:
+                            (context, error, stackTrace) => Image.asset(
+                              'lib/images/home_cmd_inner.png',
+                              // width: 80,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
+                        _goodsList[index].picture!,
+                        // width: 80,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    '¥${_goodsList[index].price}',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Color.fromARGB(255, 86, 24, 20),
+                    SizedBox(height: 5),
+                    Text(
+                      '¥${_goodsList[index].price}',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Color.fromARGB(255, 86, 24, 20),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               );
             }),
           ),
