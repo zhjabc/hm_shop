@@ -4,7 +4,7 @@ import 'package:hm_shop/api/user.dart';
 import 'package:hm_shop/pages/cart/index.dart';
 import 'package:hm_shop/pages/category/index.dart';
 import 'package:hm_shop/pages/home/index.dart';
-import 'package:hm_shop/pages/my/index.dart';
+import 'package:hm_shop/pages/mine/index.dart';
 import 'package:hm_shop/services/token_manager.dart';
 import 'package:hm_shop/controllers/user_controller.dart';
 
@@ -54,7 +54,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   List<Widget> _getChildren() {
-    return [HomeView(), CategoryView(), CartView(), MyView()];
+    return [HomeView(), CategoryView(), CartView(), MineView()];
   }
 
   final _userController = Get.find<UserController>();

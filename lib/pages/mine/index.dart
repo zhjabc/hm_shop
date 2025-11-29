@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hm_shop/api/my.dart';
 import 'package:hm_shop/models/special_offer.dart';
+import 'package:hm_shop/models/user_info.dart';
 import 'package:hm_shop/pages/home/widgets/hm_more_list.dart';
-import 'package:hm_shop/pages/my/widgets/hm_guess.dart';
+import 'package:hm_shop/pages/mine/widgets/hm_guess.dart';
 import 'package:hm_shop/controllers/user_controller.dart';
+import 'package:hm_shop/services/token_manager.dart';
 
-class MyView extends StatefulWidget {
-  const MyView({super.key});
+class MineView extends StatefulWidget {
+  const MineView({super.key});
 
   @override
-  State<MyView> createState() => _MyViewState();
+  State<MineView> createState() => _MineViewState();
 }
 
-class _MyViewState extends State<MyView> {
+class _MineViewState extends State<MineView> {
   final _userController = Get.find<UserController>();
   final List<GoodsItem> _recommendList = [];
 
@@ -55,6 +57,11 @@ class _MyViewState extends State<MyView> {
     _params['page']++;
   }
 
+  void _logOut() async {
+    await tokenManager.clearToken();
+    _userController.setUserInfo(UserInfo());
+  }
+
   Widget _buildHeader() {
     return Container(
       decoration: BoxDecoration(
@@ -67,13 +74,15 @@ class _MyViewState extends State<MyView> {
       padding: const EdgeInsets.only(left: 20, right: 40, top: 80, bottom: 20),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 26,
-            backgroundImage:
-                _userController.userInfo.value.id != null
-                    ? NetworkImage(_userController.userInfo.value.avatar!)
-                    : const AssetImage('lib/images/goods_avatar.png'),
-            backgroundColor: Colors.white,
+          Obx(
+            () => CircleAvatar(
+              radius: 26,
+              backgroundImage:
+                  _userController.userInfo.value.id != null
+                      ? NetworkImage(_userController.userInfo.value.avatar!)
+                      : const AssetImage('lib/images/goods_avatar.png'),
+              backgroundColor: Colors.white,
+            ),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -102,9 +111,43 @@ class _MyViewState extends State<MyView> {
               ],
             ),
           ),
+          Obx(() => _buildLogOut()),
         ],
       ),
     );
+  }
+
+  Widget _buildLogOut() {
+    return _userController.userInfo.value.id != null
+        ? GestureDetector(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Text('确认登出吗？'),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('取消'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        _logOut();
+                      },
+                      child: Text('确认'),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          child: Text('登出'),
+        )
+        : Text('');
   }
 
   Widget _buildVipCard() {

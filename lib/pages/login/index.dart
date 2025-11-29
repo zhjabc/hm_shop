@@ -5,6 +5,7 @@ import 'package:hm_shop/api/user.dart';
 import 'package:hm_shop/models/user_info.dart';
 import 'package:hm_shop/services/token_manager.dart';
 import 'package:hm_shop/controllers/user_controller.dart';
+import 'package:hm_shop/utils/loading_dialog.dart';
 import 'package:hm_shop/utils/totast_utils.dart';
 
 class LoginPage extends StatefulWidget {
@@ -28,6 +29,7 @@ class _LoginPageState extends State<LoginPage> {
         TotastUtils.showToast(context, "请同意隐私条款和用户协议");
         return;
       }
+      LoadingDialog.show(context, message: '登录中...');
       try {
         UserInfo userInfo = await login({
           "account": _accountController.text,
@@ -39,6 +41,8 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.of(context).pop();
       } on DioException catch (e) {
         TotastUtils.showToast(context, e.message);
+      } finally {
+        LoadingDialog.hide(context);
       }
     }
   }
