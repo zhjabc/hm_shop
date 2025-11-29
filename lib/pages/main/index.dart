@@ -74,9 +74,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: IndexedStack(index: _currentIndex, children: _getChildren()),
-      ),
+      body: IndexedStack(index: _currentIndex, children: _getChildren()),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
           _currentIndex = index;
