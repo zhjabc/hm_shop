@@ -1,4 +1,4 @@
-import 'package:hm_shop/constants/index.dart';
+import 'package:hm_shop/core/constants/index.dart';
 import 'package:hm_shop/models/banner_item.dart';
 import 'package:hm_shop/models/category_item.dart';
 import 'package:hm_shop/models/special_offer.dart';

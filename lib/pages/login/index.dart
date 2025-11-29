@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hm_shop/api/user.dart';
 import 'package:hm_shop/models/user_info.dart';
+import 'package:hm_shop/services/token_manager.dart';
+import 'package:hm_shop/controllers/user_controller.dart';
 import 'package:hm_shop/utils/totast_utils.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _selected = false;
   bool _obscureText = true;
   final GlobalKey<FormState> _formKey = GlobalKey();
+  final _userController = Get.find<UserController>();
 
   Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
@@ -29,6 +33,8 @@ class _LoginPageState extends State<LoginPage> {
           "account": _accountController.text,
           "password": _passwordController.text,
         });
+        _userController.setUserInfo(userInfo);
+        tokenManager.setToken(userInfo.token ?? "");
         TotastUtils.showToast(context, "登录成功");
         Navigator.of(context).pop();
       } on DioException catch (e) {

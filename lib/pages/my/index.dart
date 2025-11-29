@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hm_shop/api/my.dart';
 import 'package:hm_shop/models/special_offer.dart';
 import 'package:hm_shop/pages/home/widgets/hm_more_list.dart';
 import 'package:hm_shop/pages/my/widgets/hm_guess.dart';
+import 'package:hm_shop/controllers/user_controller.dart';
 
 class MyView extends StatefulWidget {
   const MyView({super.key});
@@ -12,6 +14,7 @@ class MyView extends StatefulWidget {
 }
 
 class _MyViewState extends State<MyView> {
+  final _userController = Get.find<UserController>();
   final List<GoodsItem> _recommendList = [];
 
   @override
@@ -66,7 +69,10 @@ class _MyViewState extends State<MyView> {
         children: [
           CircleAvatar(
             radius: 26,
-            backgroundImage: const AssetImage('lib/images/goods_avatar.png'),
+            backgroundImage:
+                _userController.userInfo.value.id != null
+                    ? NetworkImage(_userController.userInfo.value.avatar!)
+                    : const AssetImage('lib/images/goods_avatar.png'),
             backgroundColor: Colors.white,
           ),
           const SizedBox(width: 12),
@@ -74,13 +80,23 @@ class _MyViewState extends State<MyView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed('login');
-                  },
-                  child: Text(
-                    '立即登录',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                Obx(
+                  () => GestureDetector(
+                    onTap: () {
+                      if (_userController.userInfo.value.id != null) {
+                        return;
+                      }
+                      Navigator.of(context).pushNamed('login');
+                    },
+                    child: Text(
+                      _userController.userInfo.value.id != null
+                          ? _userController.userInfo.value.account!
+                          : '立即登录',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
               ],
